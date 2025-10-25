@@ -1,7 +1,8 @@
 import sys, subprocess, os
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton, QFileDialog,
-    QVBoxLayout, QHBoxLayout, QTextEdit, QDialog, QGroupBox
+    QVBoxLayout, QHBoxLayout, QTextEdit, QDialog, QGroupBox,
+    QLineEdit
 )
 from PyQt5.QtGui import QFont
 
@@ -18,7 +19,7 @@ class PurpleLauncher(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(f"Purple Launcher — {PATCH_INFO['version']}")
-        self.setFixedSize(560, 420)
+        self.setFixedSize(560, 500)
         self.setStyleSheet("background-color: black; color: #B400FF;")
         self.selected_engine = ""
         self.selected_iwad = ""
@@ -66,6 +67,9 @@ class PurpleLauncher(QWidget):
         self.map_button.clicked.connect(self.select_map)
         self.map_label = QLabel("No map selected")
 
+        # Extra Parameters
+        self.param_box = QLineEdit(self)
+
         # Launch and Credits
         self.launch_button = self.styled_button("LAUNCH")
         self.launch_button.clicked.connect(self.launch_game)
@@ -99,6 +103,12 @@ class PurpleLauncher(QWidget):
         file_layout.addWidget(self.map_label)
         file_group.setLayout(file_layout)
 
+        # Group: Parameters
+        param_group = QGroupBox("Extra Parameters")
+        param_layout = QVBoxLayout()
+        param_layout.addWidget(self.param_box)
+        param_group.setLayout(param_layout)
+            
         # Buttons
         button_row = QHBoxLayout()
         button_row.addWidget(self.launch_button)
@@ -108,6 +118,7 @@ class PurpleLauncher(QWidget):
         layout.addWidget(engine_group)
         layout.addWidget(iwad_group)
         layout.addWidget(file_group)
+        layout.addWidget(param_group)
         layout.addLayout(button_row)
         self.setLayout(layout)
 
@@ -134,10 +145,19 @@ class PurpleLauncher(QWidget):
         cmd = [self.selected_engine]
         if self.selected_iwad:
             cmd += ["-iwad", self.selected_iwad]
-        if self.selected_mod:
-            cmd += ["-file", self.selected_mod]
-        if self.selected_map:
-            cmd += ["-file", self.selected_map]
+
+        # Handle mods and maps.
+        if (self.selected_map or self.selected_mod):
+            cmd += ["-file"]
+            if (self.selected_mod):
+                cmd += [self.selected_mod]
+            if (self.selected_map):
+                cmd += [self.selected_map]
+
+        # Add in the extra parameters.
+        cmd += str.split(self.param_box.text())
+
+        # Attempt to launch the port.
         try:
             subprocess.Popen(cmd)
         except Exception as e:
@@ -160,7 +180,7 @@ Qwerty09
 (I have none yet)
 
 ---- INSPIRATIONS ----
-Minty Launcher (made by Coder Penguin)
+Minty Launcher (made by CoderPenguin1-dev)
 GZDoom Launcher
 
 Purple Launcher — {PATCH_INFO['version']}

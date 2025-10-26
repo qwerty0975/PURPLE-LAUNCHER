@@ -1,39 +1,17 @@
-PURPLE LAUNCHER UPDATE SYSTEM
-=============================
+Versioning Scheme
 
-Patch System Overview:
-----------------------
-Purple Launcher uses a PATCH-based versioning system. Each PATCH is a full, standalone build of the launcher. There are no incremental updates or patch files — every release is complete and self-contained.
 
-Patch Naming Format:
---------------------
-PATCH X       = Major update (new features, UI changes, systems)  
-PATCH X.Y     = Bugfix update (fixes, minor improvements)  
-PATCH X.Y.Z   = Backend-only update (refactors, optimizations, invisible changes)
+- PATCH X
+Major release. Large or breaking changes.
 
-Examples:
----------
-PATCH 1       - Initial release  
-PATCH 2       - Adds preset manager and map support  
-PATCH 2.1     - Fixes mod loading crash  
-PATCH 2.1.1   - Refactors config system for better performance
 
-How Updates Work:
------------------
-- Each PATCH is released as a full folder or installer.  
-- Users download the new PATCH and replace the old version manually.  
-- No previous version is required — every PATCH is self-contained.  
-- Older PATCHES can be kept for rollback or archival purposes.
+- PATCH X.Y
+Minor release. New user-facing features and non-breaking improvements.
 
-Patch Tracking:
----------------
-- The current PATCH version is stored in a local file (e.g. version.txt).  
-- The launcher displays the current PATCH version in the GUI.  
-- Changelog files may be included with each release.
 
-Update Philosophy:
-------------------
-- Clean, modular, and easy to maintain  
-- No risk of partial updates breaking the launcher  
-- Easy to expand with new features, assets, and content  
-- Ideal for closed-source distribution
+- PATCH X.Y.Z
+Main release for backend changes, bug fixes, maintenance, or documentation updates.
+
+
+- PATCH X.Y.Z B
+Experimental build of the exact main release; indicates unstable or experimental changes.

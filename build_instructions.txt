@@ -1,0 +1,27 @@
+Purple Launcher Build Instructions (Auto-Py-to-Exe)
+
+Requirements:
+-------------
+Install the following dependencies
+
+    pip install PyQt5 auto-py-to-exe
+
+
+Build Steps:
+------------
+launch auto py
+
+then set the script location to main.py
+
+then use onefile
+
+and add the addition script files listed here
+
+> launcher_ui
+> file_utils
+> config
+> preset_io
+> preset_scanner
+ 
+
+then convert the project :D !!!!!
